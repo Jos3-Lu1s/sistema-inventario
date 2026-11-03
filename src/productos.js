@@ -1,7 +1,7 @@
 const producto = {
-    nombre : "cocacola",
-    precio : 20,
-    codigo : "345456"
+    nombre : "Pepsi",
+    precio : 50,
+    codigo : "874358"
 };
 
 console.log (producto);
