@@ -1,0 +1,29 @@
+{
+  "name": "sistema-inventario",
+  "version": "1.0.0",
+  "description": "Sistema web para la gestión de inventarios de un comercio electrónico.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jos3-Lu1s/sistema-inventario.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Jos3-Lu1s/sistema-inventario/issues"
+  },
+  "homepage": "https://github.com/Jos3-Lu1s/sistema-inventario#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "jest": "^30.5.2"
+  },
+  "private": true
+}

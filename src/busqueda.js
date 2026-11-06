@@ -1,12 +1,8 @@
-const productos = [
-    { codigo: "345456", nombre: "cocacola", precio: 20, existencia: 50 },
-    { codigo: "123789", nombre: "sabritas", precio: 18, existencia: 30 },
-    { codigo: "987654", nombre: "galletas", precio: 15, existencia: 25 }
-];
+import { productos } from "./productos.js";
 
-// Busca productos cuyo nombre contenga el texto indicado
-function buscarProducto(texto) {
-    return productos.filter(p => p.nombre.toLowerCase().includes(texto.toLowerCase()));
+// Devuelve los productos cuyo nombre contiene `texto`, sin distinguir mayúsculas.
+// Si `texto` es "", devuelve todos los productos. No modifica `lista`.
+export function buscarProducto(texto, lista = productos) {
+    const busqueda = texto.toLowerCase();
+    return lista.filter(p => p.nombre.toLowerCase().includes(busqueda));
 }
-
-console.log(buscarProducto("coca"));
