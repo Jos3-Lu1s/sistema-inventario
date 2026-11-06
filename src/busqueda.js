@@ -6,3 +6,5 @@ export function buscarProducto(texto, lista = productos) {
     const busqueda = texto.toLowerCase();
     return lista.filter(p => p.nombre.toLowerCase().includes(busqueda));
 }
+
+const sinUsar = 1;
