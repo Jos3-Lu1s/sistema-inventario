@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Inventario</title>
 </head>
 <body>
-    <script src="./src/productos.js"></script>
+    <h1>Inventario</h1>
+
+    <label for="busqueda">Buscar producto:</label>
+    <input type="search" id="busqueda" placeholder="Nombre del producto">
+
+    <table id="tabla-productos">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Existencia</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <p id="sin-resultados" hidden>No se encontraron productos</p>
+
+    <script type="module" src="./src/main.js"></script>
 </body>
 </html>
