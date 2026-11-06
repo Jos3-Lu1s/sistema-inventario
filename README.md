@@ -1,4 +1,7 @@
 # sistema-inventario
+
+[![CI - Verificar proyecto](https://github.com/Jos3-Lu1s/sistema-inventario/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Jos3-Lu1s/sistema-inventario/actions/workflows/ci.yml)
+
 Sistema web para la gestión de inventarios de un comercio electrónico.
 
 ## Desarrollo
