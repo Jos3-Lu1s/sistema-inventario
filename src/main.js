@@ -1,5 +1,6 @@
 import { agregarProducto, obtenerProducto } from "./almacen.js";
 import { buscarProducto } from "./busqueda.js";
+import { lineasDetalle } from "./detalle.js";
 
 const inputBusqueda = document.getElementById("busqueda");
 const cuerpoTabla = document.querySelector("#tabla-productos tbody");
@@ -59,25 +60,12 @@ const detalleProducto = document.getElementById("detalle-producto");
 // Muestra código, nombre, precio y existencia del producto con ese código
 // en #detalle-producto, o "Producto no encontrado" si no existe.
 export function mostrarProducto(codigo) {
-    detalleProducto.replaceChildren();
-
-    const producto = obtenerProducto(codigo);
-    if (!producto) {
-        detalleProducto.textContent = "Producto no encontrado";
-        return;
-    }
-
-    const datos = [
-        ["Código", producto.codigo],
-        ["Nombre", producto.nombre],
-        ["Precio", producto.precio],
-        ["Existencia", producto.existencia]
-    ];
-    for (const [etiqueta, valor] of datos) {
+    const lineas = lineasDetalle(obtenerProducto(codigo)).map(texto => {
         const linea = document.createElement("p");
-        linea.textContent = `${etiqueta}: ${valor}`;
-        detalleProducto.appendChild(linea);
-    }
+        linea.textContent = texto;
+        return linea;
+    });
+    detalleProducto.replaceChildren(...lineas);
 }
 
 formDetalle.addEventListener("submit", (evento) => {
