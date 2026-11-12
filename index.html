@@ -8,6 +8,37 @@
 <body>
     <h1>Inventario</h1>
 
+    <form id="form-alta">
+        <h2>Agregar producto</h2>
+
+        <label for="alta-codigo">Código:</label>
+        <input type="text" id="alta-codigo">
+
+        <label for="alta-nombre">Nombre:</label>
+        <input type="text" id="alta-nombre">
+
+        <label for="alta-precio">Precio:</label>
+        <input type="number" id="alta-precio" step="any">
+
+        <label for="alta-existencia">Existencia:</label>
+        <input type="number" id="alta-existencia">
+
+        <button type="submit">Agregar</button>
+    </form>
+
+    <p id="error-alta" role="alert"></p>
+
+    <form id="form-detalle">
+        <h2>Ver producto</h2>
+
+        <label for="detalle-codigo">Código:</label>
+        <input type="text" id="detalle-codigo">
+
+        <button type="submit">Ver</button>
+    </form>
+
+    <div id="detalle-producto"></div>
+
     <label for="busqueda">Buscar producto:</label>
     <input type="search" id="busqueda" placeholder="Nombre del producto">
 
