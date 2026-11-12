@@ -17,5 +17,11 @@ export default [
         languageOptions: {
             globals: globals.jest
         }
+    },
+    {
+        files: ["reporters/**/*.js"],
+        languageOptions: {
+            globals: globals.node
+        }
     }
 ];

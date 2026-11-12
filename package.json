@@ -25,5 +25,11 @@
     "globals": "^17.14.0",
     "jest": "^30.5.2"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "reporters": [
+      "default",
+      "<rootDir>/reporters/reporte-pruebas.js"
+    ]
+  }
 }
