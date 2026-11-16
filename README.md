@@ -51,6 +51,14 @@ En GitHub Actions, un paso que termina con código distinto de 0 detiene el job.
 - **Señala dónde está el problema:** el workflow indica qué paso falló (lint o pruebas) y el log muestra el archivo y la línea.
 - **Da confianza para hacer merge:** si el check está en verde, se sabe que el código pasó el lint y todas las pruebas.
 
+### Workflow de pruebas automatizadas (`.github/workflows/tests.yml`)
+
+Además de `ci.yml`, el workflow [`.github/workflows/tests.yml`](.github/workflows/tests.yml) ("Pruebas automatizadas") permite ejecutar la verificación completa de forma automática y bajo demanda:
+
+- **Disparadores en cualquier rama:** se ejecuta en cada `push` y `pull_request` sin restricción de rama.
+- **Ejecución manual (`workflow_dispatch`):** puede lanzarse en cualquier momento desde la pestaña **Actions** de GitHub usando el botón **Run workflow**.
+- **Resumen en Job Summary:** tras ejecutar `npm run lint` y `npm test`, publica el bloque `RESULTADOS DE LAS PRUEBAS` en el resumen de la ejecución (`$GITHUB_STEP_SUMMARY`), incluso si alguna prueba falla.
+
 ## Detección de errores en las pruebas unitarias
 
 Para comprobar cómo Jest y el reporter [`reporters/reporte-pruebas.js`](reporters/reporte-pruebas.js) detectan un fallo en la lógica de la aplicación, se introdujo un error temporal en `lineasDetalle` dentro de [`src/detalle.js`](src/detalle.js) agregando un signo `$` al formato del precio:
