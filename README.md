@@ -50,3 +50,33 @@ En GitHub Actions, un paso que termina con código distinto de 0 detiene el job.
 - **No afecta a los demás:** como se detecta en el pull request, el error no entra a `main` y nadie más trabaja sobre código roto.
 - **Señala dónde está el problema:** el workflow indica qué paso falló (lint o pruebas) y el log muestra el archivo y la línea.
 - **Da confianza para hacer merge:** si el check está en verde, se sabe que el código pasó el lint y todas las pruebas.
+
+## Detección de errores en las pruebas unitarias
+
+Para comprobar cómo Jest y el reporter [`reporters/reporte-pruebas.js`](reporters/reporte-pruebas.js) detectan un fallo en la lógica de la aplicación, se introdujo un error temporal en `lineasDetalle` dentro de [`src/detalle.js`](src/detalle.js) agregando un signo `$` al formato del precio:
+
+```js
+// Cambio temporal (provoca el fallo)
+`Precio: $${producto.precio}`
+```
+
+Al ejecutar `npm test`, el comando terminó con código de salida `1` (`4 failed, 35 passed, 39 total`), fallando las 4 pruebas de [`tests/producto.test.js`](tests/producto.test.js) que verifican el texto del precio (`CP04`, `CP06`, `CP07` y `CP08`):
+
+```text
+RESULTADOS DE LAS PRUEBAS
+
+CP01 - Crear producto                  CORRECTO
+CP02 - Mostrar código                  CORRECTO
+CP03 - Mostrar nombre                  CORRECTO
+CP04 - Mostrar precio                  ERROR
+CP05 - Mostrar existencia              CORRECTO
+CP06 - Mostrar información completa    ERROR
+CP07 - Crear segundo producto          ERROR
+CP08 - Precio con decimales            ERROR
+CP09 - Existencia en cero              CORRECTO
+CP10 - Producto inexistente            CORRECTO
+
+Resultado: 6 de 10 pruebas satisfactorias.
+```
+
+Finalmente se restauró `src/detalle.js` a `Precio: ${producto.precio}`, con lo que `npm test` volvió a terminar con código de salida `0` y `Resultado: 10 de 10 pruebas satisfactorias.`.
