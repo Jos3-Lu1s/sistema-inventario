@@ -97,3 +97,7 @@ El workflow [`.github/workflows/release.yml`](.github/workflows/release.yml) ("L
 - **Verificación previa:** antes de empaquetar, instala dependencias con `npm ci`, valida el código con `npm run lint` y ejecuta las pruebas con `npm test`.
 - **Paquete de distribución:** genera `sistema-inventario-<tag>.zip` incluyendo únicamente los archivos necesarios para producción (`index.html`, `src/` y `LICENSE`), excluyendo pruebas, reportes y archivos de configuración.
 - **Publicación:** crea o actualiza el Release correspondiente en GitHub adjuntando el `.zip` generado y notas de versión automáticas.
+
+### Bloqueo de liberación ante fallos
+
+Para comprobar la importancia de validar antes de publicar una versión, se introdujo temporalmente el error en `src/detalle.js` (`Precio: $${producto.precio}`) y se disparó el workflow con una tag de prueba (`v1.0.1-test`). Al fallar `npm test` en el paso **Ejecutar pruebas con Jest**, GitHub Actions detuvo el job inmediatamente, omitió el empaquetado (`Empaquetar archivos de producción`) y no publicó ningún Release para `v1.0.1-test`. Una vez comprobado, se restauró `src/detalle.js` y se registró la corrección en [`CHANGELOG.md`](CHANGELOG.md).
