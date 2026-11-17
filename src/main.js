@@ -6,15 +6,44 @@ const inputBusqueda = document.getElementById("busqueda");
 const cuerpoTabla = document.querySelector("#tabla-productos tbody");
 const sinResultados = document.getElementById("sin-resultados");
 
+// Con esta existencia o menos, la fila muestra el aviso "Quedan pocas"
+const POCAS_PIEZAS = 25;
+
 // Dibuja los productos en la tabla y muestra u oculta el mensaje de "sin resultados"
 function dibujarProductos(lista) {
     cuerpoTabla.replaceChildren();
 
     for (const producto of lista) {
         const fila = document.createElement("tr");
-        for (const valor of [producto.codigo, producto.nombre, producto.precio, producto.existencia]) {
+        const columnas = [
+            ["Código", producto.codigo],
+            ["Nombre", producto.nombre],
+            ["Precio", producto.precio],
+            ["Existencia", producto.existencia]
+        ];
+        for (const [etiqueta, valor] of columnas) {
             const celda = document.createElement("td");
-            celda.textContent = valor;
+            celda.dataset.etiqueta = etiqueta;
+
+            if (etiqueta === "Precio") {
+                const tag = document.createElement("span");
+                tag.className = "precio";
+                tag.textContent = `$${valor}`;
+                celda.appendChild(tag);
+            } else if (etiqueta === "Existencia") {
+                const cantidad = document.createElement("span");
+                cantidad.className = "existencia";
+                cantidad.textContent = valor;
+                celda.appendChild(cantidad);
+                if (valor <= POCAS_PIEZAS) {
+                    const aviso = document.createElement("span");
+                    aviso.className = "pocas";
+                    aviso.textContent = "Quedan pocas";
+                    celda.appendChild(aviso);
+                }
+            } else {
+                celda.textContent = valor;
+            }
             fila.appendChild(celda);
         }
         cuerpoTabla.appendChild(fila);

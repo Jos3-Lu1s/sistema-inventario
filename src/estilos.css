@@ -1,0 +1,294 @@
+:root {
+    --pared: #1a3c9e;
+    --rotulo: #ffd41f;
+    --oferta: #d9322b;
+    --cal: #f1f4f8;
+    --tinta: #0f1e52;
+    --tinta-suave: #4a5a8c;
+    --linea: #c5cee3;
+    --hoja: #ffffff;
+
+    --display: "Bowlby One", "Arial Black", Impact, sans-serif;
+    --texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--cal);
+    color: var(--tinta);
+    font-family: var(--texto);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+}
+
+/* Toldo */
+.toldo {
+    background:
+        repeating-linear-gradient(90deg, var(--pared) 0 3.25rem, var(--rotulo) 3.25rem 6.5rem);
+    padding-bottom: 1.1rem;
+    border-bottom: 0.45rem solid var(--tinta);
+}
+
+.toldo-interior {
+    background: var(--pared);
+    margin: 0;
+    padding: 1.5rem 1.25rem 1.25rem;
+}
+
+h1 {
+    margin: 0 auto;
+    max-width: 72rem;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 9vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--rotulo);
+    text-shadow: 0.06em 0.06em 0 var(--tinta);
+}
+
+.toldo p {
+    margin: 0.6rem auto 0;
+    max-width: 72rem;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+/* Distribución */
+main {
+    display: grid;
+    gap: 2rem;
+    max-width: 72rem;
+    margin: 2rem auto 4rem;
+    padding: 0 1.25rem;
+    align-items: start;
+}
+
+@media (min-width: 62rem) {
+    main { grid-template-columns: 22rem 1fr; }
+    .lateral { position: sticky; top: 1rem; }
+}
+
+.lateral { display: grid; gap: 1.5rem; }
+
+/* Hojas de formulario */
+form {
+    background: var(--hoja);
+    border: 2px solid var(--tinta);
+    border-top-width: 0.6rem;
+    border-radius: 0.25rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+#form-alta { border-top-color: var(--rotulo); }
+#form-detalle { border-top-color: var(--oferta); }
+
+h2 {
+    margin: 0 0 0.5rem;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.35rem;
+    line-height: 1.15;
+}
+
+label {
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+input {
+    font: inherit;
+    color: var(--tinta);
+    background: var(--cal);
+    border: 2px solid var(--linea);
+    border-radius: 0.25rem;
+    padding: 0.55rem 0.7rem;
+    width: 100%;
+    min-height: 2.75rem;
+}
+
+input:hover { border-color: var(--tinta-suave); }
+
+:focus-visible {
+    outline: 3px solid var(--oferta);
+    outline-offset: 2px;
+}
+
+input:focus-visible { border-color: var(--tinta); background: #fff; }
+
+button {
+    margin-top: 0.9rem;
+    font-family: var(--display);
+    font-size: 1.05rem;
+    min-height: 2.9rem;
+    padding: 0.5rem 1rem;
+    color: var(--tinta);
+    background: var(--rotulo);
+    border: 2px solid var(--tinta);
+    border-radius: 0.25rem;
+    box-shadow: 0.2rem 0.2rem 0 var(--tinta);
+    cursor: pointer;
+    transition: transform 80ms, box-shadow 80ms;
+}
+
+button:hover { background: #ffe05a; }
+
+button:active {
+    transform: translate(0.2rem, 0.2rem);
+    box-shadow: 0 0 0 var(--tinta);
+}
+
+#form-detalle button { background: #fff; }
+#form-detalle button:hover { background: var(--cal); }
+
+/* Mensaje de error */
+#error-alta {
+    margin: 0.5rem 0 0;
+    font-weight: 700;
+    color: var(--oferta);
+}
+
+#error-alta:empty { display: none; }
+
+#error-alta::before { content: "Revisa: "; }
+
+/* Detalle del producto */
+#detalle-producto:empty { display: none; }
+
+#detalle-producto {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--tinta);
+    color: #fff;
+    border-radius: 0.25rem;
+}
+
+#detalle-producto p { margin: 0.1rem 0; }
+#detalle-producto p:first-child { color: var(--rotulo); }
+
+/* Estante */
+.estante { min-width: 0; }
+
+.busqueda {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+}
+
+.busqueda label { margin: 0; font-size: 1.1rem; }
+
+#busqueda {
+    font-size: 1.2rem;
+    border-color: var(--tinta);
+    background: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--hoja);
+    border: 2px solid var(--tinta);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+}
+
+thead th {
+    background: var(--pared);
+    color: #fff;
+    text-align: left;
+    padding: 0.7rem 1rem;
+    font-weight: 700;
+}
+
+tbody td {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--linea);
+    vertical-align: middle;
+}
+
+tbody tr:first-child td { border-top: 0; }
+
+td:nth-child(1) { color: var(--tinta-suave); }
+td:nth-child(2) { font-weight: 700; font-size: 1.15rem; text-transform: capitalize; }
+
+/* Etiqueta de precio */
+.precio {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 0.5rem 0.8rem 0.5rem 1.1rem;
+    background: var(--rotulo);
+    color: var(--tinta);
+    clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
+}
+
+/* Existencia */
+.existencia { font-weight: 700; font-size: 1.15rem; }
+
+.pocas {
+    display: inline-block;
+    margin-left: 0.6rem;
+    padding: 0.1rem 0.5rem;
+    background: var(--oferta);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 0.2rem;
+    transform: rotate(-3deg);
+}
+
+#sin-resultados {
+    margin: 1rem 0 0;
+    padding: 1rem;
+    border: 2px dashed var(--tinta-suave);
+    border-radius: 0.25rem;
+    font-weight: 700;
+}
+
+/* Móvil: cada fila es una ficha */
+@media (max-width: 40rem) {
+    table, tbody, tr, td { display: block; }
+    thead { position: absolute; left: -9999px; }
+    table { background: transparent; border: 0; }
+    tbody tr {
+        background: var(--hoja);
+        border: 2px solid var(--tinta);
+        border-radius: 0.25rem;
+        margin-bottom: 0.9rem;
+        padding: 0.5rem 0;
+    }
+    tbody td {
+        border: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.35rem 1rem;
+    }
+    tbody td::before {
+        content: attr(data-etiqueta);
+        font-weight: 400;
+        color: var(--tinta-suave);
+    }
+}
+
+/* Una sola entrada al cargar: las etiquetas de precio caen en su lugar */
+@media (prefers-reduced-motion: no-preference) {
+    .precio { animation: colgar 500ms ease-out both; transform-origin: 0 0; }
+    tbody tr:nth-child(2) .precio { animation-delay: 70ms; }
+    tbody tr:nth-child(3) .precio { animation-delay: 140ms; }
+    tbody tr:nth-child(4) .precio { animation-delay: 210ms; }
+}
+
+@keyframes colgar {
+    from { opacity: 0; transform: rotate(-14deg) translateY(-0.5rem); }
+    60% { transform: rotate(3deg); }
+    to { opacity: 1; transform: none; }
+}
