@@ -5,6 +5,17 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/),
 y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.1.0] - 2026-11-17
+
+### Agregado
+
+- Pie de página en `index.html` que muestra la versión desplegada (`Versión 1.1.0`), con estilo `.pie` en `src/estilos.css`.
+- Workflow de despliegue en GitHub Pages (`.github/workflows/deploy.yml`) a partir del paquete publicado en GitHub Releases.
+
+### Problema conocido
+
+- `index.html` carga el módulo `./src/app.js`, que no existe, así que la aplicación no responde (no se pueden registrar productos). El fallo es intencional: sirve para la demostración de recuperación de la versión anterior en la práctica de despliegue. Se corrige en `1.1.1`.
+
 ## [1.0.2] - 2026-11-17
 
 ### Corregido

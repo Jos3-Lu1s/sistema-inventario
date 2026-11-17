@@ -66,6 +66,16 @@ main {
     align-items: start;
 }
 
+/* Pie de página con la versión desplegada */
+.pie {
+    max-width: 72rem;
+    margin: 0 auto 2rem;
+    padding: 0 1.25rem;
+    color: var(--tinta-suave);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
 @media (min-width: 62rem) {
     main { grid-template-columns: 22rem 1fr; }
     .lateral { position: sticky; top: 1rem; }
