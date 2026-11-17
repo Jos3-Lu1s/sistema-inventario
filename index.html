@@ -4,57 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bowlby+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/estilos.css">
 </head>
 <body>
-    <h1>Inventario</h1>
+    <header class="toldo">
+        <div class="toldo-interior">
+            <h1>Inventario</h1>
+            <p>Productos de la tienda: agrega, consulta y busca.</p>
+        </div>
+    </header>
 
-    <form id="form-alta">
-        <h2>Agregar producto</h2>
+    <main>
+        <div class="lateral">
+            <form id="form-alta">
+                <h2>Agregar producto</h2>
 
-        <label for="alta-codigo">Código:</label>
-        <input type="text" id="alta-codigo">
+                <label for="alta-codigo">Código</label>
+                <input type="text" id="alta-codigo">
 
-        <label for="alta-nombre">Nombre:</label>
-        <input type="text" id="alta-nombre">
+                <label for="alta-nombre">Nombre</label>
+                <input type="text" id="alta-nombre">
 
-        <label for="alta-precio">Precio:</label>
-        <input type="number" id="alta-precio" step="any">
+                <label for="alta-precio">Precio en pesos</label>
+                <input type="number" id="alta-precio" step="any">
 
-        <label for="alta-existencia">Existencia:</label>
-        <input type="number" id="alta-existencia">
+                <label for="alta-existencia">Existencia en piezas</label>
+                <input type="number" id="alta-existencia">
 
-        <button type="submit">Agregar</button>
-    </form>
+                <p id="error-alta" role="alert"></p>
 
-    <p id="error-alta" role="alert"></p>
+                <button type="submit">Agregar</button>
+            </form>
 
-    <form id="form-detalle">
-        <h2>Ver producto</h2>
+            <form id="form-detalle">
+                <h2>Ver producto</h2>
 
-        <label for="detalle-codigo">Código:</label>
-        <input type="text" id="detalle-codigo">
+                <label for="detalle-codigo">Código</label>
+                <input type="text" id="detalle-codigo">
 
-        <button type="submit">Ver</button>
-    </form>
+                <button type="submit">Ver</button>
 
-    <div id="detalle-producto"></div>
+                <div id="detalle-producto"></div>
+            </form>
+        </div>
 
-    <label for="busqueda">Buscar producto:</label>
-    <input type="search" id="busqueda" placeholder="Nombre del producto">
+        <section class="estante">
+            <div class="busqueda">
+                <label for="busqueda">Buscar producto</label>
+                <input type="search" id="busqueda" placeholder="Nombre del producto">
+            </div>
 
-    <table id="tabla-productos">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Existencia</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+            <table id="tabla-productos">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Existencia</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
 
-    <p id="sin-resultados" hidden>No se encontraron productos</p>
+            <p id="sin-resultados" hidden>No se encontraron productos. Prueba con otro nombre.</p>
+        </section>
+    </main>
 
     <script type="module" src="./src/main.js"></script>
 </body>

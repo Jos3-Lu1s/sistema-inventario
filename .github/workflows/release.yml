@@ -1,0 +1,56 @@
+name: Liberacion del Sistema de Inventario
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión / tag a liberar (ej. v1.0.0)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  liberar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v5
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar el código con ESLint
+        run: npm run lint
+
+      - name: Ejecutar pruebas con Jest
+        run: npm test
+
+      - name: Definir versión de liberación
+        id: version
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            echo "tag=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Empaquetar archivos de producción
+        run: zip -r "sistema-inventario-${{ steps.version.outputs.tag }}.zip" index.html src LICENSE
+
+      - name: Publicar Release en GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          generate_release_notes: true
+          files: sistema-inventario-${{ steps.version.outputs.tag }}.zip

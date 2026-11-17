@@ -202,6 +202,7 @@ cython_debug/
 #   and can be added to the global gitignore or merged into this file. However, if you prefer, you
 #   could uncomment the following to ignore the entire vscode folder
 # .vscode/
+.vscode/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
@@ -222,6 +223,16 @@ __marimo__/
 # Node.js
 node_modules/
 coverage/
+npm-debug.log*
+.eslintcache
+.env*.local
+
+# Paquetes de distribución / releases
+*.zip
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
 
 # Herramientas de IA
 .agents/
