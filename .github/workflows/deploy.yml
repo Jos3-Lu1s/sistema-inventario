@@ -1,0 +1,81 @@
+name: Despliegue del Sistema de Inventario
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión publicada a desplegar (ej. v1.0.2)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  desplegar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - name: Validar versión
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Versión inválida: '$VERSION'. Formato esperado: vX.Y.Z (ej. v1.0.2)"
+            exit 1
+          fi
+          echo "Versión a desplegar: $VERSION"
+
+      - name: Descargar versión liberada
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: ${{ github.repository }}
+          tag: ${{ inputs.version }}
+          fileName: sistema-inventario-${{ inputs.version }}.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extraer paquete
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -e
+          mkdir -p sitio
+          unzip -o "sistema-inventario-${VERSION}.zip" -d sitio
+          test -f sitio/index.html
+          test -f sitio/src/main.js
+          ls -R sitio
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir sitio
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: sitio
+
+      - name: Publicar en GitHub Pages
+        id: despliegue
+        uses: actions/deploy-pages@v4
+
+      - name: Verificar sitio
+        env:
+          URL: ${{ steps.despliegue.outputs.page_url }}
+        run: |
+          for intento in 1 2 3 4 5; do
+            if curl -fsS "$URL" | grep -q '<title>Inventario</title>'; then
+              echo "Sitio disponible en $URL"
+              exit 0
+            fi
+            echo "Intento $intento: el sitio aún no responde, reintentando en 10 s..."
+            sleep 10
+          done
+          echo "::error::El sitio $URL no respondió con <title>Inventario</title>"
+          exit 1
