@@ -8,7 +8,7 @@ export function lineasDetalle(producto) {
     return [
         `Código: ${producto.codigo}`,
         `Nombre: ${producto.nombre}`,
-        `Precio: ${producto.precio}`,
+        `Precio: $${producto.precio}`,
         `Existencia: ${producto.existencia}`
     ];
 }
