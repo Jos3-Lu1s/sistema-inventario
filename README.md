@@ -88,3 +88,12 @@ Resultado: 6 de 10 pruebas satisfactorias.
 ```
 
 Finalmente se restauró `src/detalle.js` a `Precio: ${producto.precio}`, con lo que `npm test` volvió a terminar con código de salida `0` y `Resultado: 10 de 10 pruebas satisfactorias.`.
+
+## Liberación de versiones
+
+El workflow [`.github/workflows/release.yml`](.github/workflows/release.yml) ("Liberacion del Sistema de Inventario") automatiza la generación del paquete de distribución y su publicación en **GitHub Releases**:
+
+- **Disparadores:** se ejecuta automáticamente al subir una tag que comience con `v` (por ejemplo, `v1.0.0`) o manualmente desde la pestaña **Actions** mediante `workflow_dispatch` (con el campo opcional `version`).
+- **Verificación previa:** antes de empaquetar, instala dependencias con `npm ci`, valida el código con `npm run lint` y ejecuta las pruebas con `npm test`.
+- **Paquete de distribución:** genera `sistema-inventario-<tag>.zip` incluyendo únicamente los archivos necesarios para producción (`index.html`, `src/` y `LICENSE`), excluyendo pruebas, reportes y archivos de configuración.
+- **Publicación:** crea o actualiza el Release correspondiente en GitHub adjuntando el `.zip` generado y notas de versión automáticas.
